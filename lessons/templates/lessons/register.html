@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+    <h1>Акаунт түзүү</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ user_form.as_p }}
+        <button type="submit">Катталуу</button>
+    </form>
+{% endblock %}

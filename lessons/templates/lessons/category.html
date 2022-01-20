@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ category_k_gk.title }} :: {{ block.super }}
+{% endblock %}
+
+
+{% block content %}
+    <div class="col-md-9">
+        {% for item in lessons_k_gk %}
+            <div class="card mb-3">
+                <div class="card-header">
+                    Категория: {{ item.category }}
+                </div>
+                <div class="card-body">
+                    <div class="media">
+                        <div class="media-body">
+                            <h5 class="card-title">{{ item.title }}</h5>
+                            {% if item.video %}
+                            <p class="card-text">{{ item.video }}</p>
+                            <video controls width="100%" height="100%">
+                                <source src="{{ item.video.url }}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            {% endif %}
+                            <h5 class="card-title">Лектор: {{ item.lecturer }}</h5>
+                            <h5 class="card-title">Описание урока: {{ item.description }}</h5>
+                            <a href="{% url 'lesson-detail' item.id %}" class="btn btn-primary">Көрүү</a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-footer text-muted">
+                    {{ item.created_at|date:"Y-m-d H:i" }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
