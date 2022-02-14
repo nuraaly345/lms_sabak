@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+
+    <div class="task-list">
+        
+        <div class="task">
+            <table border="1" width="1000" class='table table-striped'>
+                <tr>
+                    <th>Аты</th>
+                    <th>Курс</th>
+                    <th>Номери</th>
+                    <th>Файлы</th>
+                </tr>
+                {% for task in task_object %}
+                <tr>
+                    <td>{{ task.name }}</td>
+                    <td>{{ task.cat }}</td>
+                    <td>{{ task.task_num }}</td>
+                    <td><a href="{{ task.media.url }}">{{ task.media}}</a></td>
+                </tr>
+                {% endfor %}
+            </table>  
+            
+        </div>
+       
+    </div>
+
+{% endblock %}

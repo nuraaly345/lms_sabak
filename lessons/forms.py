@@ -3,6 +3,13 @@ from django import forms
 from .models import *
 from django.contrib.auth.models import User
 
+class AddCategoryForm(forms.ModelForm):
+    
+    class Meta:
+        model = Category
+        fields = ['title', 'description', 'author']
+
+
 class AddPostForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -14,8 +21,8 @@ class AddPostForm(forms.ModelForm):
         fields = ['title', 'video', 'lecturer', 'description', 'is_published','category']
 
 class UserRegistrationForm(forms.ModelForm):
-    password = forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Repeat password', widget=forms.PasswordInput)
+    password = forms.CharField(label='Сыр соз', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Сыр сөздү кайталоо', widget=forms.PasswordInput)
 
     class Meta:
         model = User
@@ -33,11 +40,20 @@ class LoginForm(forms.Form):
 
 
 class UserEditForm(forms.ModelForm):
+    first_name = forms.CharField(max_length=100, required=True, 
+                widget=forms.TextInput(attrs={'class': 'form-control'}))
+    last_name = forms.CharField(max_length=100, required=True, 
+                widget=forms.TextInput(attrs={'class': 'form-control'}))
+    email = forms.EmailField(required=True, widget=forms.TextInput(
+                attrs={'class': 'form-control'}
+    ))
+
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'email')
 
 class ProfileEditForm(forms.ModelForm):
+
     class Meta:
         model = Profile
-        fields = ('date_of_birth', 'photo')
+        fields = ('photo',)

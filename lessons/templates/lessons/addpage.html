@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
-
+{% load static %}
+<link href="{% static 'css/style.css' %}" rel="stylesheet" />    
 {%block title%} {{ title }} {% endblock %}
 
 
@@ -13,11 +14,11 @@
         </div>
 
         {% for f in form %}
-            <p><label class='form-label' for="{{ f.id_for_label }}">{{ f.label }}: </label>{{ f }}</p>
+            <p ><label class='col-sm-2 col-form-label' for="{{ f.id_for_label }}">{{ f.label }}: </label>{{ f }}</p>
             <div class="form-error">{{f.erors}}</div>
         {% endfor %}
 
-        <button type="submit">Кошуу</button>
+        <button type="submit" class="btn btn-primary">Сактоо</button>
     </form>
 
 

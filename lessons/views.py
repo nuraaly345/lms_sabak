@@ -2,7 +2,6 @@ from logging import exception
 from django.shortcuts import render, redirect
 from .models import *
 from .forms import *
-from .forms import  *
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from django.contrib import messages
@@ -39,7 +38,6 @@ def get_category(request, category_id):
                   {'lessons_k_gk': lessons, 'categories_k_gk': categories, 'category_k_gk': category})
 
 
-def addpage(request):
     if request.method == 'POST':
         form = AddPostForm(request.POST, request.FILES)
         if form.is_valid():
@@ -50,6 +48,19 @@ def addpage(request):
     return render(request, 'lessons/addpage.html', {'form': form, 'title': ' Сабак кошуу'})
 
 
+
+def addcategory(request):
+    if request.method == 'POST':
+        cat_form = AddCategoryForm(request.POST)
+        if cat_form.is_valid():
+            cat_form.save()
+            return redirect('/')
+    else:
+        cat_form = AddCategoryForm()
+    return render(request, 'lessons/cat_create.html', {"cat_form": cat_form, "title": "Категория түзүү" })
+
+
+# Колдонуучуну регистрация кылуу
 def register(request):
     if request.method == 'POST':
         user_form = UserRegistrationForm(request.POST)
@@ -64,25 +75,6 @@ def register(request):
     return render(request, 'lessons/register.html', {'user_form':user_form, 'title': 'Каттоо'})
 
 
-@login_required
-def edit(request):
-    if request.method == 'POST':
-        user_form = UserEditForm(instance=request.user, data=request.POST)
-        profile_form = ProfileEditForm(instance=request.user.profile, data=request.POST, files=request.FILES)
-        if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
-            profile_form.save()
-            return redirect('profile')
-        else:
-            messages.error(request, 'Error updating your profile')
-    else:
-        user_form = UserEditForm(instance=request.user)
-        profile_form = ProfileEditForm(instance=request.user.profile)
-        return render(request, 'lessons/edit.html', {'user_form': user_form, 'profile_form': profile_form, 'title': 'Маалыматтарды өзгөртүү'})
-
-
-
-
 def login_user(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -94,15 +86,15 @@ def login_user(request):
                     login(request, user)
                     return redirect('homepage')
                 else:
-                    messages.error(request, 'Error updating your profile')
+                    return HttpResponse(' Error')
             else:
-                messages.error(request, 'Error updating your profile')
+                return HttpResponse('Error')
     else:
         form = LoginForm()
     return render(request, 'lessons/login.html', {'form': form, 'title': 'Кирүү'})
 
 
-
+# Профил менен иштөө
 def profile(request):
     if request.user.is_authenticated:
         user = request.user
@@ -110,6 +102,37 @@ def profile(request):
         return render(request, 'lessons/profile.html', {'profile': profile_object, 'title': 'Жеке маалыматтар'})
     else:
         return redirect('homepage')
+
+
+@login_required
+def edit(request):
+    if request.method == 'POST':
+        user_form = UserEditForm(instance=request.user, data=request.POST)
+    
+        profile_form = ProfileEditForm(instance=request.user.profile, data=request.POST, files=request.FILES)
+        print(user_form.is_valid(), profile_form.is_valid())
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Сиздин профилиңиз ийгиликтүү өзгөрдү')
+            return redirect('profile')
+    else:
+        user_form = UserEditForm(instance=request.user)
+        profile_form = ProfileEditForm(instance=request.user.profile)
+    return render(request, 'lessons/edit.html', {'user_form': user_form, 'profile_form': profile_form, 'title': 'Маалыматтарды өзгөртүү'})
+
+# Сабак кошуу
+def addpage(request):
+    if request.method == 'POST':
+        form = AddPostForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
+        form = AddPostForm()
+    return render(request, 'lessons/addpage.html', {'form': form, 'title': ' Сабак кошуу'})
+
 
 
 class NewsDetailView(DeleteView):

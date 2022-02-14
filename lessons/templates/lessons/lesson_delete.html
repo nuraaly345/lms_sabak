@@ -7,8 +7,8 @@
 
     <form  method="post" >
         {% csrf_token %}
-        <p>{{ lesson.title }}</p>
-        <button type="submit">Өчүрүү</button>
+        <p class="col-sm-2 col-form-label">{{ lesson.title }}</p>
+        <button type="submit" class="btn btn-primary">Өчүрүү</button>
     </form>
 
 

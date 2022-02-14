@@ -16,4 +16,5 @@ urlpatterns = [
     path('<int:pk>', NewsDetailView.as_view(), name='lesson-detail'),
     path('<int:pk>/update', NewsUpdateView.as_view(), name='update'),
     path('<int:pk>/delete', NewsDeleteView.as_view(), name='delete'),
+    path('create-category/', addcategory, name='create-category'),
 ]

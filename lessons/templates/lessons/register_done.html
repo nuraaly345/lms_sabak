@@ -4,5 +4,5 @@
 
 {% block content %}
     <h1>Биздин сайтка кош келдиңиз {{ new_user.first_name}}!</h1>
-    <p>Сиз ийгиликтүү катталдаңыз. "Кирүүнү" басып кириңиз <a href="{% url 'login' %}">Кирүү</a> </p>
+    <p>Сиз ийгиликтүү катталдаңыз. "Кирүүнү" басып кириңиз <a class="btn btn-primary" href="{% url 'login' %}">Кирүү</a> </p>
 {% endblock %}

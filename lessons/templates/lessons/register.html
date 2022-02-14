@@ -3,10 +3,19 @@
 {% block title %} {{ title }} {% endblock %}
 
 {% block content %}
+
+ <div class="row mb-3">
     <h1>Акаунт түзүү</h1>
     <form method="post">
         {% csrf_token %}
-        {{ user_form.as_p }}
-        <button type="submit">Катталуу</button>
+  
+      <p> <label class='col-sm-2 col-form-label'>Логин: </label> {{user_form.username}}</p> 
+       <p><label class='col-sm-2 col-form-label'>E-mail: </label>  {{user_form.email}}</p>
+      <p> <label class='col-sm-2 col-form-label'>Сыр соз: </label>  {{user_form.password}}</p>
+      <p> <label class='col-sm-2 col-form-label'>Сыр сөздү кайталоо: </label> {{user_form.password2}}</p>
+
+        <button type="submit" class='btn btn-primary'>Катталуу</button>
+   
     </form>
+</div>
 {% endblock %}

@@ -1,5 +1,7 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="{% url 'homepage' %}">Navbar</a>
+    <a class="navbar-brand" href="{% url 'homepage' %}"><img src="{% static 'images/Рисунок1.png' %}"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -7,19 +9,24 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            {% if not request.user.is_authenticated %}
-            <li class="nav-item"><a class="nav-link" href="{% url 'homepage' %}">Главная</a></li>
+            {% if not request.user.is_staff %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'homepage' %}">Башкы бет</a></li>
         
             {% else %}
-            <li class="nav-item"><a class="nav-link" href="{% url 'homepage' %}">Главная</a></li>
-            
-            <li class="nav-item"><a class="nav-link" href="{% url 'add_page' %}">Добавить урок</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'homepage' %}">Башкы бет</a></li>
+        
+            <li class="nav-item"><a class="nav-link" href="{% url 'task-list' %}"> Тапшырма </a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'create-category' %}"> Категория </a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'add_page' %}"> Сабак кошуу</li>
+
             {%endif%}
+            <form class="d-flex">
             {% if request.user.is_authenticated %}
-            <li class="nav-item"><a href="{% url 'profile' %}">{{ user.username}}</a> | <a class="nav-link" href="{% url 'logout' %}">Чыгуу</a></li>
-            {% else %}
-            <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Катталуу | </a><a class="nav-link" href="{% url 'login' %}">Кирүү</a></li>
+            <li class="d-flex"><a class='nav-link' href="{% url 'profile' %}">{{ user.username}}</a></li> <li class="nav-item ">|</li> <li class="d-flex "><a class="nav-link" href="{% url 'logout' %}">Чыгуу</a></li>
+                 {% else %}
+            <li class="d-flex"><a class="nav-link" href="{% url 'register' %}">Катталуу </a> </li> <li class="nav-item "> | </li> <li class="d-flex "> <a class="nav-link" href="{% url 'login' %}">Кирүү</a></li>
             {%  endif %}
+        </form>
         </ul>
     </div>
 </nav>

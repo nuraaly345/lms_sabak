@@ -5,8 +5,8 @@
 {% block content %}
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit"> Кирүү </button>
+       <p class="col-sm-2 col-form-label">{{ form.as_p }}</p> 
+        <button type="submit" class="btn btn-primary"> Кирүү </button>
     </form>
 
 {% endblock %}

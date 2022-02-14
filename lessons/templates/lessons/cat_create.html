@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %} {{title}} {% endblock %}
+
+{% block content %}
+
+<form method="POST">
+    {% csrf_token %}
+   
+       <div class='row mb-3' >
+           <p><label class="col-sm-2 col-form-label">Курстун аталышы:</label>            {{ cat_form.title }}</p>
+           <p><label class="col-sm-2 col-form-label">Баяндама: </label>            {{ cat_form.description }}</p>
+           <p><label class="col-sm-2 col-form-label">Автору: </label>            {{ cat_form.author }}</p>
+
+          
+       </div>
+    
+    
+    <button type="submit" class="btn btn-primary">
+        Түзүү
+    </button>
+
+{% endblock %}
